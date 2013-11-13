@@ -1,0 +1,61 @@
+﻿@model ProprioInfini.Annonce
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Annonce</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Proprietaire.Courriel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Proprietaire.Courriel)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateDebutAnnonce)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateDebutAnnonce)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateFinAnnonce)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateFinAnnonce)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Prix)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prix)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Batiment.Id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Batiment.Id)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Titre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Titre)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

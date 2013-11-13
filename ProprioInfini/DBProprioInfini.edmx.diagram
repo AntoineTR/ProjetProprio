@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3836ffb69f50497b809b097bb5b91f7b" Name="Diagramme1" ZoomLevel="82">
+        <EntityTypeShape EntityType="ProprioInfiniModel.Adresse" Width="1.5" PointX="13.25" PointY="13.375" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Annonce" Width="1.5" PointX="8.9752383031767042" PointY="25.975312841113336" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Batiment" Width="1.5" PointX="6.7819876031866233" PointY="0.34194792823025394" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Proprietaire" Width="1.5" PointX="6.4503964010860759" PointY="11.261927252291669" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Rue" Width="1.5" PointX="1.5527454845387236" PointY="21.238873446937127" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.sysdiagram" Width="1.5" PointX="9.93803580381816" PointY="12.420460945191076" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Ville" Width="1.5" PointX="10.625" PointY="10" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Adresse_Rue" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Adresse_Ville" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Batiment_Adresse" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Proprietaire_Adresse" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Annonce_Batiment" />
+        <AssociationConnector Association="ProprioInfiniModel.FK_Annonce_Proprietaire" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

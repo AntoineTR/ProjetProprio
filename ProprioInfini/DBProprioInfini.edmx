@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProprioInfiniModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ProprioInfiniModelStoreContainer">
+          <EntitySet Name="Adresse" EntityType="ProprioInfiniModel.Store.Adresse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Annonce" EntityType="ProprioInfiniModel.Store.Annonce" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Batiment" EntityType="ProprioInfiniModel.Store.Batiment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Proprietaire" EntityType="ProprioInfiniModel.Store.Proprietaire" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rue" EntityType="ProprioInfiniModel.Store.Rue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ville" EntityType="ProprioInfiniModel.Store.Ville" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.Store.FK_Adresse_Rue">
+            <End Role="Rue" EntitySet="Rue" />
+            <End Role="Adresse" EntitySet="Adresse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adresse_Ville" Association="ProprioInfiniModel.Store.FK_Adresse_Ville">
+            <End Role="Ville" EntitySet="Ville" />
+            <End Role="Adresse" EntitySet="Adresse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Annonce_Batiment" Association="ProprioInfiniModel.Store.FK_Annonce_Batiment">
+            <End Role="Batiment" EntitySet="Batiment" />
+            <End Role="Annonce" EntitySet="Annonce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Annonce_Proprietaire" Association="ProprioInfiniModel.Store.FK_Annonce_Proprietaire">
+            <End Role="Proprietaire" EntitySet="Proprietaire" />
+            <End Role="Annonce" EntitySet="Annonce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Batiment_Adresse" Association="ProprioInfiniModel.Store.FK_Batiment_Adresse">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Batiment" EntitySet="Batiment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proprietaire_Adresse" Association="ProprioInfiniModel.Store.FK_Proprietaire_Adresse">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Proprietaire" EntitySet="Proprietaire" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="VilleId" Type="int" />
+          <Property Name="CodePostal" Type="varchar" MaxLength="50" />
+          <Property Name="RueId" Type="int" />
+        </EntityType>
+        <EntityType Name="Annonce">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProprietaireId" Type="int" />
+          <Property Name="DateDebutAnnonce" Type="date" />
+          <Property Name="DateFinAnnonce" Type="date" />
+          <Property Name="Prix" Type="decimal" />
+          <Property Name="BatimentId" Type="int" />
+          <Property Name="Titre" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Batiment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NombrePiece" Type="decimal" />
+          <Property Name="EstChauffer" Type="bit" />
+          <Property Name="Electricite" Type="bit" />
+          <Property Name="Internet" Type="bit" />
+          <Property Name="Stationnement" Type="bit" />
+          <Property Name="AdresseId" Type="int" />
+        </EntityType>
+        <EntityType Name="Proprietaire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Courriel" Type="varchar" MaxLength="50" />
+          <Property Name="Nom" Type="nchar" MaxLength="10" />
+          <Property Name="AdresseId" Type="int" />
+          <Property Name="Telephone" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Rue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Ville">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="nchar" MaxLength="10" />
+          <Property Name="GeoLocation" Type="geography" />
+        </EntityType>
+        <Association Name="FK_Adresse_Rue">
+          <End Role="Rue" Type="ProprioInfiniModel.Store.Rue" Multiplicity="0..1" />
+          <End Role="Adresse" Type="ProprioInfiniModel.Store.Adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adresse">
+              <PropertyRef Name="RueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adresse_Ville">
+          <End Role="Ville" Type="ProprioInfiniModel.Store.Ville" Multiplicity="0..1" />
+          <End Role="Adresse" Type="ProprioInfiniModel.Store.Adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ville">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adresse">
+              <PropertyRef Name="VilleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Annonce_Batiment">
+          <End Role="Batiment" Type="ProprioInfiniModel.Store.Batiment" Multiplicity="0..1" />
+          <End Role="Annonce" Type="ProprioInfiniModel.Store.Annonce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batiment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Annonce">
+              <PropertyRef Name="BatimentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Annonce_Proprietaire">
+          <End Role="Proprietaire" Type="ProprioInfiniModel.Store.Proprietaire" Multiplicity="0..1" />
+          <End Role="Annonce" Type="ProprioInfiniModel.Store.Annonce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proprietaire">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Annonce">
+              <PropertyRef Name="ProprietaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Batiment_Adresse">
+          <End Role="Adresse" Type="ProprioInfiniModel.Store.Adresse" Multiplicity="0..1" />
+          <End Role="Batiment" Type="ProprioInfiniModel.Store.Batiment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Batiment">
+              <PropertyRef Name="AdresseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proprietaire_Adresse">
+          <End Role="Adresse" Type="ProprioInfiniModel.Store.Adresse" Multiplicity="0..1" />
+          <End Role="Proprietaire" Type="ProprioInfiniModel.Store.Proprietaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proprietaire">
+              <PropertyRef Name="AdresseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProprioInfiniModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProprioInfiniConn" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Adresses" EntityType="ProprioInfiniModel.Adresse" />
+          <EntitySet Name="Annonces" EntityType="ProprioInfiniModel.Annonce" />
+          <EntitySet Name="Batiments" EntityType="ProprioInfiniModel.Batiment" />
+          <EntitySet Name="Proprietaires" EntityType="ProprioInfiniModel.Proprietaire" />
+          <EntitySet Name="Rues" EntityType="ProprioInfiniModel.Rue" />
+          <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.sysdiagram" />
+          <EntitySet Name="Villes" EntityType="ProprioInfiniModel.Ville" />
+          <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.FK_Adresse_Rue">
+            <End Role="Rue" EntitySet="Rues" />
+            <End Role="Adresse" EntitySet="Adresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adresse_Ville" Association="ProprioInfiniModel.FK_Adresse_Ville">
+            <End Role="Ville" EntitySet="Villes" />
+            <End Role="Adresse" EntitySet="Adresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Batiment_Adresse" Association="ProprioInfiniModel.FK_Batiment_Adresse">
+            <End Role="Adresse" EntitySet="Adresses" />
+            <End Role="Batiment" EntitySet="Batiments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proprietaire_Adresse" Association="ProprioInfiniModel.FK_Proprietaire_Adresse">
+            <End Role="Adresse" EntitySet="Adresses" />
+            <End Role="Proprietaire" EntitySet="Proprietaires" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Annonce_Batiment" Association="ProprioInfiniModel.FK_Annonce_Batiment">
+            <End Role="Batiment" EntitySet="Batiments" />
+            <End Role="Annonce" EntitySet="Annonces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Annonce_Proprietaire" Association="ProprioInfiniModel.FK_Annonce_Proprietaire">
+            <End Role="Proprietaire" EntitySet="Proprietaires" />
+            <End Role="Annonce" EntitySet="Annonces" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="VilleId" />
+          <Property Type="String" Name="CodePostal" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="RueId" />
+          <NavigationProperty Name="Rue" Relationship="ProprioInfiniModel.FK_Adresse_Rue" FromRole="Adresse" ToRole="Rue" />
+          <NavigationProperty Name="Ville" Relationship="ProprioInfiniModel.FK_Adresse_Ville" FromRole="Adresse" ToRole="Ville" />
+          <NavigationProperty Name="Batiments" Relationship="ProprioInfiniModel.FK_Batiment_Adresse" FromRole="Adresse" ToRole="Batiment" />
+          <NavigationProperty Name="Proprietaires" Relationship="ProprioInfiniModel.FK_Proprietaire_Adresse" FromRole="Adresse" ToRole="Proprietaire" />
+        </EntityType>
+        <EntityType Name="Annonce">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="ProprietaireId" />
+          <Property Type="DateTime" Name="DateDebutAnnonce" Precision="0" />
+          <Property Type="DateTime" Name="DateFinAnnonce" Precision="0" />
+          <Property Type="Decimal" Name="Prix" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="BatimentId" />
+          <Property Type="String" Name="Titre" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Batiment" Relationship="ProprioInfiniModel.FK_Annonce_Batiment" FromRole="Annonce" ToRole="Batiment" />
+          <NavigationProperty Name="Proprietaire" Relationship="ProprioInfiniModel.FK_Annonce_Proprietaire" FromRole="Annonce" ToRole="Proprietaire" />
+        </EntityType>
+        <EntityType Name="Batiment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Decimal" Name="NombrePiece" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="EstChauffer" />
+          <Property Type="Boolean" Name="Electricite" />
+          <Property Type="Boolean" Name="Internet" />
+          <Property Type="Boolean" Name="Stationnement" />
+          <Property Type="Int32" Name="AdresseId" />
+          <NavigationProperty Name="Adresse" Relationship="ProprioInfiniModel.FK_Batiment_Adresse" FromRole="Batiment" ToRole="Adresse" />
+          <NavigationProperty Name="Annonces" Relationship="ProprioInfiniModel.FK_Annonce_Batiment" FromRole="Batiment" ToRole="Annonce" />
+        </EntityType>
+        <EntityType Name="Proprietaire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Courriel" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Nom" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="AdresseId" />
+          <Property Type="String" Name="Telephone" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Adresse" Relationship="ProprioInfiniModel.FK_Proprietaire_Adresse" FromRole="Proprietaire" ToRole="Adresse" />
+          <NavigationProperty Name="Annonces" Relationship="ProprioInfiniModel.FK_Annonce_Proprietaire" FromRole="Proprietaire" ToRole="Annonce" />
+        </EntityType>
+        <EntityType Name="Rue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nom" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Adresses" Relationship="ProprioInfiniModel.FK_Adresse_Rue" FromRole="Rue" ToRole="Adresse" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Ville">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nom" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Geography" Name="GeoLocation" />
+          <NavigationProperty Name="Adresses" Relationship="ProprioInfiniModel.FK_Adresse_Ville" FromRole="Ville" ToRole="Adresse" />
+        </EntityType>
+        <Association Name="FK_Adresse_Rue">
+          <End Type="ProprioInfiniModel.Rue" Role="Rue" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Adresse" Role="Adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adresse">
+              <PropertyRef Name="RueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adresse_Ville">
+          <End Type="ProprioInfiniModel.Ville" Role="Ville" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Adresse" Role="Adresse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ville">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adresse">
+              <PropertyRef Name="VilleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Batiment_Adresse">
+          <End Type="ProprioInfiniModel.Adresse" Role="Adresse" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Batiment" Role="Batiment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Batiment">
+              <PropertyRef Name="AdresseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proprietaire_Adresse">
+          <End Type="ProprioInfiniModel.Adresse" Role="Adresse" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Proprietaire" Role="Proprietaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Proprietaire">
+              <PropertyRef Name="AdresseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Annonce_Batiment">
+          <End Type="ProprioInfiniModel.Batiment" Role="Batiment" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Annonce" Role="Annonce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Batiment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Annonce">
+              <PropertyRef Name="BatimentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Annonce_Proprietaire">
+          <End Type="ProprioInfiniModel.Proprietaire" Role="Proprietaire" Multiplicity="0..1" />
+          <End Type="ProprioInfiniModel.Annonce" Role="Annonce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proprietaire">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Annonce">
+              <PropertyRef Name="ProprietaireId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProprioInfiniModelStoreContainer" CdmEntityContainer="ProprioInfiniConn">
+          <EntitySetMapping Name="Adresses">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Adresse">
+              <MappingFragment StoreEntitySet="Adresse">
+                <ScalarProperty Name="RueId" ColumnName="RueId" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="VilleId" ColumnName="VilleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Annonces">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Annonce">
+              <MappingFragment StoreEntitySet="Annonce">
+                <ScalarProperty Name="Titre" ColumnName="Titre" />
+                <ScalarProperty Name="BatimentId" ColumnName="BatimentId" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="DateFinAnnonce" ColumnName="DateFinAnnonce" />
+                <ScalarProperty Name="DateDebutAnnonce" ColumnName="DateDebutAnnonce" />
+                <ScalarProperty Name="ProprietaireId" ColumnName="ProprietaireId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Batiments">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Batiment">
+              <MappingFragment StoreEntitySet="Batiment">
+                <ScalarProperty Name="AdresseId" ColumnName="AdresseId" />
+                <ScalarProperty Name="Stationnement" ColumnName="Stationnement" />
+                <ScalarProperty Name="Internet" ColumnName="Internet" />
+                <ScalarProperty Name="Electricite" ColumnName="Electricite" />
+                <ScalarProperty Name="EstChauffer" ColumnName="EstChauffer" />
+                <ScalarProperty Name="NombrePiece" ColumnName="NombrePiece" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proprietaires">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Proprietaire">
+              <MappingFragment StoreEntitySet="Proprietaire">
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="AdresseId" ColumnName="AdresseId" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rues">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Rue">
+              <MappingFragment StoreEntitySet="Rue">
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Villes">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Ville">
+              <MappingFragment StoreEntitySet="Ville">
+                <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
