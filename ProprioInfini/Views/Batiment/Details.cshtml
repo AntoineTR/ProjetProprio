@@ -1,0 +1,64 @@
+﻿@model ProprioInfini.Batiment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Batiment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NombrePiece)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NombrePiece)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstChauffer)
+    </div>
+    <div class="display-field">
+        @Model.EstChauffer.Value.ToString()
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Electricite)
+    </div>
+    <div class="display-field">
+        @Model.Electricite.Value.ToString()
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Internet)
+    </div>
+    <div class="display-field">
+        @Model.Internet.Value.ToString()
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Stationnement)
+    </div>
+    <div class="display-field">
+        @Model.Stationnement.Value.ToString()
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Adresse.CodePostal)
+    </div>
+    <div class="display-field">
+        @Html.ActionLink(Model.Adresse.CodePostal, "Details","Adresse", new { id = Model.AdresseId }, null)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

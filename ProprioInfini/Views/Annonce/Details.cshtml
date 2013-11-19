@@ -13,7 +13,7 @@
          @Html.DisplayNameFor(model => model.Proprietaire.Courriel)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Proprietaire.Courriel)
+       @Html.ActionLink(Model.Proprietaire.Nom, "Details","Proprietaire", new { id = Model.ProprietaireId }, null)
     </div>
 
     <div class="display-label">
@@ -38,10 +38,11 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Batiment.Id)
+         Batiment
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Batiment.Id)
+        @Html.ActionLink(Model.Batiment.Nom, "Details","Batiment", new { id = Model.BatimentId }, null)
+        @Html.DisplayFor(model => model.Batiment.Nom)
     </div>
 
     <div class="display-label">

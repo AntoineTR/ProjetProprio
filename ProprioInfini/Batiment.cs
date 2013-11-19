@@ -26,6 +26,7 @@ namespace ProprioInfini
         public Nullable<bool> Internet { get; set; }
         public Nullable<bool> Stationnement { get; set; }
         public Nullable<int> AdresseId { get; set; }
+        public string Nom { get; set; }
     
         public virtual Adresse Adresse { get; set; }
         public virtual ICollection<Annonce> Annonces { get; set; }

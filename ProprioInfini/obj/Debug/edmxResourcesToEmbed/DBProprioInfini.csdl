@@ -73,6 +73,7 @@
     <Property Type="Int32" Name="AdresseId" />
     <NavigationProperty Name="Adresse" Relationship="ProprioInfiniModel.FK_Batiment_Adresse" FromRole="Batiment" ToRole="Adresse" />
     <NavigationProperty Name="Annonces" Relationship="ProprioInfiniModel.FK_Annonce_Batiment" FromRole="Batiment" ToRole="Annonce" />
+    <Property Type="String" Name="Nom" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Proprietaire">
     <Key>

@@ -39,8 +39,8 @@ namespace ProprioInfini.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.BatimentId = new SelectList(db.Batiments, "Id", "Id");
-            ViewBag.ProprietaireId = new SelectList(db.Proprietaires, "Id", "Courriel");
+            ViewBag.BatimentId = new SelectList(db.Batiments, "Id", "Nom");
+            ViewBag.ProprietaireId = new SelectList(db.Proprietaires, "Id", "Nom");
             return View();
         }
 
@@ -58,8 +58,8 @@ namespace ProprioInfini.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BatimentId = new SelectList(db.Batiments, "Id", "Id", annonce.BatimentId);
-            ViewBag.ProprietaireId = new SelectList(db.Proprietaires, "Id", "Courriel", annonce.ProprietaireId);
+            ViewBag.BatimentId = new SelectList(db.Batiments, "Id", "Nom", annonce.BatimentId);
+            ViewBag.ProprietaireId = new SelectList(db.Proprietaires, "Id", "Nom", annonce.ProprietaireId);
             return View(annonce);
         }
 

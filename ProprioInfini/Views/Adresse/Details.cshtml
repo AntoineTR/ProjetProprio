@@ -1,0 +1,36 @@
+﻿@model ProprioInfini.Adresse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Adresse</legend>
+
+    <div class="display-label">
+        Ville
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ville.Nom)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CodePostal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CodePostal)
+    </div>
+
+    <div class="display-label">
+         Rue
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rue.Nom)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

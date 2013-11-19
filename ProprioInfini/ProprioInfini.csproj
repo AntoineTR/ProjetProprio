@@ -193,8 +193,11 @@
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdresseController.cs" />
     <Compile Include="Controllers\AnnonceController.cs" />
+    <Compile Include="Controllers\BatimentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProprietaireController.cs" />
     <Compile Include="DBProprioInfini.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -362,6 +365,21 @@
     <Content Include="Views\Annonce\Create.cshtml" />
     <Content Include="Views\Annonce\Edit.cshtml" />
     <Content Include="Views\Annonce\Delete.cshtml" />
+    <Content Include="Views\Batiment\Index.cshtml" />
+    <Content Include="Views\Batiment\Details.cshtml" />
+    <Content Include="Views\Batiment\Create.cshtml" />
+    <Content Include="Views\Batiment\Edit.cshtml" />
+    <Content Include="Views\Batiment\Delete.cshtml" />
+    <Content Include="Views\Adresse\Index.cshtml" />
+    <Content Include="Views\Adresse\Details.cshtml" />
+    <Content Include="Views\Adresse\Create.cshtml" />
+    <Content Include="Views\Adresse\Edit.cshtml" />
+    <Content Include="Views\Adresse\Delete.cshtml" />
+    <Content Include="Views\Proprietaire\Index.cshtml" />
+    <Content Include="Views\Proprietaire\Details.cshtml" />
+    <Content Include="Views\Proprietaire\Create.cshtml" />
+    <Content Include="Views\Proprietaire\Edit.cshtml" />
+    <Content Include="Views\Proprietaire\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

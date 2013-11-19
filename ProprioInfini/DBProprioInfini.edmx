@@ -21,7 +21,7 @@
             <End Role="Ville" EntitySet="Ville" />
             <End Role="Adresse" EntitySet="Adresse" />
           </AssociationSet>
-          <AssociationSet Name="FK_Annonce_Batiment" Association="ProprioInfiniModel.Store.FK_Annonce_Batiment">
+          <AssociationSet Name="FK_Annonce_Batiment1" Association="ProprioInfiniModel.Store.FK_Annonce_Batiment1">
             <End Role="Batiment" EntitySet="Batiment" />
             <End Role="Annonce" EntitySet="Annonce" />
           </AssociationSet>
@@ -42,7 +42,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="VilleId" Type="int" />
           <Property Name="CodePostal" Type="varchar" MaxLength="50" />
           <Property Name="RueId" Type="int" />
@@ -51,7 +51,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ProprietaireId" Type="int" />
           <Property Name="DateDebutAnnonce" Type="date" />
           <Property Name="DateFinAnnonce" Type="date" />
@@ -63,19 +63,20 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NombrePiece" Type="decimal" />
           <Property Name="EstChauffer" Type="bit" />
           <Property Name="Electricite" Type="bit" />
           <Property Name="Internet" Type="bit" />
           <Property Name="Stationnement" Type="bit" />
           <Property Name="AdresseId" Type="int" />
+          <Property Name="Nom" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Proprietaire">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Courriel" Type="varchar" MaxLength="50" />
           <Property Name="Nom" Type="nchar" MaxLength="10" />
           <Property Name="AdresseId" Type="int" />
@@ -85,7 +86,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nom" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -102,7 +103,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Nom" Type="nchar" MaxLength="10" />
           <Property Name="GeoLocation" Type="geography" />
         </EntityType>
@@ -130,7 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Annonce_Batiment">
+        <Association Name="FK_Annonce_Batiment1">
           <End Role="Batiment" Type="ProprioInfiniModel.Store.Batiment" Multiplicity="0..1" />
           <End Role="Annonce" Type="ProprioInfiniModel.Store.Annonce" Multiplicity="*" />
           <ReferentialConstraint>
@@ -255,6 +256,7 @@
           <Property Type="Int32" Name="AdresseId" />
           <NavigationProperty Name="Adresse" Relationship="ProprioInfiniModel.FK_Batiment_Adresse" FromRole="Batiment" ToRole="Adresse" />
           <NavigationProperty Name="Annonces" Relationship="ProprioInfiniModel.FK_Annonce_Batiment" FromRole="Batiment" ToRole="Annonce" />
+          <Property Type="String" Name="Nom" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Proprietaire">
           <Key>
@@ -399,6 +401,7 @@
           <EntitySetMapping Name="Batiments">
             <EntityTypeMapping TypeName="ProprioInfiniModel.Batiment">
               <MappingFragment StoreEntitySet="Batiment">
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="AdresseId" ColumnName="AdresseId" />
                 <ScalarProperty Name="Stationnement" ColumnName="Stationnement" />
                 <ScalarProperty Name="Internet" ColumnName="Internet" />
