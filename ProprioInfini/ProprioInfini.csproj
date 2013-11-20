@@ -231,6 +231,9 @@
     <Compile Include="Ville.cs">
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
+    <Compile Include="Villes_prof.cs">
+      <DependentUpon>DBProprioInfini.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -380,6 +383,7 @@
     <Content Include="Views\Proprietaire\Create.cshtml" />
     <Content Include="Views\Proprietaire\Edit.cshtml" />
     <Content Include="Views\Proprietaire\Delete.cshtml" />
+    <Content Include="Views\Shared\adresseMAPPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,6 +18,7 @@ namespace ProprioInfini.Controllers
         public ActionResult Index()
         {
             var annonces = db.Annonces.Include(a => a.Batiment).Include(a => a.Proprietaire);
+            ViewBag.listBatisse = db.Annonces.ToList();
             return View(annonces.ToList());
         }
 
@@ -120,6 +121,19 @@ namespace ProprioInfini.Controllers
             db.Annonces.Remove(annonce);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AdresseMAPPartial(string adresse)
+        {
+            string numCivic =  adresse.Substring(0,adresse.IndexOf(' '));
+            List<Annonce> lAnnonces = db.Annonces.ToList().FindAll(x => x.Batiment.Adresse.NumeroCivic == int.Parse(numCivic));
+            
+            string contenu = "<table><tr><th>Nom du Proprio</th><th>Date Debut Annonce</th><th>Date Fin Annonce</th><th>Prix</th><th>Batiment</th><th>Titre de LANNONCE</th>";
+            foreach (Annonce item in lAnnonces)
+            {
+                contenu += "<tr><td>" + item.Proprietaire.Nom + "</td><td>" + item.DateDebutAnnonce.Value.ToShortDateString() + "</td><td>" + item.DateFinAnnonce.Value.ToShortDateString() + "</td><td>" + item.Prix.ToString() + "</td><td>" + item.Batiment.Nom + "</td><td>" + item.Titre + "</td></tr>";
+            }                   
+            return Content(contenu);
         }
 
         protected override void Dispose(bool disposing)

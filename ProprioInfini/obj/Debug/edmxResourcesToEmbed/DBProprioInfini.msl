@@ -4,6 +4,8 @@
     <EntitySetMapping Name="Adresses">
       <EntityTypeMapping TypeName="ProprioInfiniModel.Adresse">
         <MappingFragment StoreEntitySet="Adresse">
+          <ScalarProperty Name="NumeroCivic" ColumnName="NumeroCivic" />
+          <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
           <ScalarProperty Name="RueId" ColumnName="RueId" />
           <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
           <ScalarProperty Name="VilleId" ColumnName="VilleId" />
@@ -74,6 +76,15 @@
           <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Villes_prof">
+      <EntityTypeMapping TypeName="ProprioInfiniModel.Villes_prof">
+        <MappingFragment StoreEntitySet="Villes_prof">
+          <ScalarProperty Name="geometrie" ColumnName="geometrie" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="ville_id" ColumnName="ville_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

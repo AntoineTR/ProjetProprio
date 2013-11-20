@@ -8,6 +8,13 @@
     <EntitySet Name="Rue" EntityType="ProprioInfiniModel.Store.Rue" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Ville" EntityType="ProprioInfiniModel.Store.Ville" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Villes_prof" EntityType="ProprioInfiniModel.Store.Villes_prof" store:Type="Tables" store:Schema="dbo" store:Name="Villes_prof">
+      <DefiningQuery>SELECT 
+      [Villes_prof].[ville_id] AS [ville_id], 
+      [Villes_prof].[nom] AS [nom], 
+      [Villes_prof].[geometrie] AS [geometrie]
+      FROM [dbo].[Villes_prof] AS [Villes_prof]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.Store.FK_Adresse_Rue">
       <End Role="Rue" EntitySet="Rue" />
       <End Role="Adresse" EntitySet="Adresse" />
@@ -41,6 +48,8 @@
     <Property Name="VilleId" Type="int" />
     <Property Name="CodePostal" Type="varchar" MaxLength="50" />
     <Property Name="RueId" Type="int" />
+    <Property Name="GeoLocation" Type="geography" />
+    <Property Name="NumeroCivic" Type="int" />
   </EntityType>
   <EntityType Name="Annonce">
     <Key>
@@ -101,6 +110,17 @@
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Nom" Type="nchar" MaxLength="10" />
     <Property Name="GeoLocation" Type="geography" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « e525_A13_P2_E1111FFFFFF.dbo.Villes_prof » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+  <EntityType Name="Villes_prof">
+    <Key>
+      <PropertyRef Name="ville_id" />
+    </Key>
+    <Property Name="ville_id" Type="int" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="200" />
+    <Property Name="geometrie" Type="geography" />
   </EntityType>
   <Association Name="FK_Adresse_Rue">
     <End Role="Rue" Type="ProprioInfiniModel.Store.Rue" Multiplicity="0..1" />

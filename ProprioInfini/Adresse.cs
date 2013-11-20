@@ -24,6 +24,8 @@ namespace ProprioInfini
         public Nullable<int> VilleId { get; set; }
         public string CodePostal { get; set; }
         public Nullable<int> RueId { get; set; }
+        public System.Data.Spatial.DbGeography GeoLocation { get; set; }
+        public Nullable<int> NumeroCivic { get; set; }
     
         public virtual Rue Rue { get; set; }
         public virtual Ville Ville { get; set; }

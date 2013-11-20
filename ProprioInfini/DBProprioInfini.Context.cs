@@ -32,5 +32,6 @@ namespace ProprioInfini
         public DbSet<Rue> Rues { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<Ville> Villes { get; set; }
+        public DbSet<Villes_prof> Villes_prof { get; set; }
     }
 }
