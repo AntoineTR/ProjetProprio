@@ -127,11 +127,7 @@
                     map: map
                 });
                 google.maps.event.addListener(marker, 'click', function () {
-                    adresseMAP(adresse);
-                    var infowindow = new google.maps.InfoWindow({
-                        content: contentString
-                    });
-                    infowindow.open(map, marker);
+                    adresseMAP(adresse,map, marker);
                 });
             }
             else
@@ -139,14 +135,19 @@
         });
 
     }
-    function adresseMAP(adresse)
+
+    function adresseMAP(adresse, map, marker)
     {
         $.ajax({
             url: '@Url.Action("AdresseMAPPartial", "Annonce")',
             data: { adresse: adresse },
             type: 'POST',
             success: function (data) {
-               contentString = data
+                contentString = data;
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                infowindow.open(map, marker);
             }
         });
     }

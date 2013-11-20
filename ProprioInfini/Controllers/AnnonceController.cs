@@ -122,7 +122,8 @@ namespace ProprioInfini.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
+        [HttpPost]
         public ActionResult AdresseMAPPartial(string adresse)
         {
             string numCivic =  adresse.Substring(0,adresse.IndexOf(' '));
