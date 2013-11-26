@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<ProprioInfini.Annonce>
 
+
+
+
 @foreach(ProprioInfini.Annonce item2 in ViewBag.listBatisse)
 {
     <div class="geoloco" id="@item2.Batiment.Adresse.NumeroCivic  @item2.Batiment.Adresse.Rue.Nom  @item2.Batiment.Adresse.Ville.Nom"></div>
@@ -16,6 +19,9 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<h3>LOL POGNE TA VILLE EL GROS</h3>
+@Html.DropDownList("listRegion", String.Empty)
 <table>
     <tr>
         <th>
@@ -87,6 +93,13 @@
     $(document).ready(function () {
         initialize();
     });
+
+
+    $('#listRegion').on('change', function () {
+
+        alert('test');
+
+    });
     var contentString;
     function initialize()
     {
@@ -110,7 +123,7 @@
        // addPoint(map, new google.maps.LatLng(45.539121, -73.492355));
     }
 
-
+    var info = new google.maps.InfoWindow({});
     function addPoint(map, adresse)
     {
         var geocoder = new google.maps.Geocoder();
@@ -118,16 +131,17 @@
         {
             if (status == google.maps.GeocoderStatus.OK)
             {
-                
-               
-
                 marker = new google.maps.Marker(
                 {
                     position: results[0].geometry.location,
                     map: map
                 });
                 google.maps.event.addListener(marker, 'click', function () {
-                    adresseMAP(adresse,map, marker);
+                    adresseMAP(adresse, map, this);
+                    /*var infowindow = new google.maps.InfoWindow({
+                        content: 'Hello'
+                    });*/
+                    
                 });
             }
             else
@@ -144,10 +158,8 @@
             type: 'POST',
             success: function (data) {
                 contentString = data;
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
-                infowindow.open(map, marker);
+                info.setContent(data);
+                info.open(map, marker);
             }
         });
     }

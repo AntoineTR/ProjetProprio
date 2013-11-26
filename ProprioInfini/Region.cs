@@ -12,9 +12,9 @@ namespace ProprioInfini
     using System;
     using System.Collections.Generic;
     
-    public partial class Villes_prof
+    public partial class Region
     {
-        public int ville_id { get; set; }
+        public int Id { get; set; }
         public string nom { get; set; }
         public System.Data.Spatial.DbGeography geometrie { get; set; }
     }

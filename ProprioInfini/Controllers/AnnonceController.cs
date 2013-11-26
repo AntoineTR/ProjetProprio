@@ -19,6 +19,7 @@ namespace ProprioInfini.Controllers
         {
             var annonces = db.Annonces.Include(a => a.Batiment).Include(a => a.Proprietaire);
             ViewBag.listBatisse = db.Annonces.ToList();
+            ViewBag.listRegion = new SelectList(db.Regions, "Id", "Nom");
             return View(annonces.ToList());
         }
 

@@ -10,16 +10,10 @@
           <EntitySet Name="Annonce" EntityType="ProprioInfiniModel.Store.Annonce" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Batiment" EntityType="ProprioInfiniModel.Store.Batiment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Proprietaire" EntityType="ProprioInfiniModel.Store.Proprietaire" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Region" EntityType="ProprioInfiniModel.Store.Region" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Rue" EntityType="ProprioInfiniModel.Store.Rue" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Ville" EntityType="ProprioInfiniModel.Store.Ville" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Villes_prof" EntityType="ProprioInfiniModel.Store.Villes_prof" store:Type="Tables" store:Schema="dbo" store:Name="Villes_prof">
-            <DefiningQuery>SELECT 
-      [Villes_prof].[ville_id] AS [ville_id], 
-      [Villes_prof].[nom] AS [nom], 
-      [Villes_prof].[geometrie] AS [geometrie]
-      FROM [dbo].[Villes_prof] AS [Villes_prof]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.Store.FK_Adresse_Rue">
             <End Role="Rue" EntitySet="Rue" />
             <End Role="Adresse" EntitySet="Adresse" />
@@ -91,6 +85,14 @@
           <Property Name="AdresseId" Type="int" />
           <Property Name="Telephone" Type="varchar" MaxLength="15" />
         </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="200" />
+          <Property Name="geometrie" Type="geography" />
+        </EntityType>
         <EntityType Name="Rue">
           <Key>
             <PropertyRef Name="Id" />
@@ -113,19 +115,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nchar" MaxLength="10" />
-          <Property Name="GeoLocation" Type="geography" />
-        </EntityType>
-        <!--Erreurs détectées durant la génération :
-      Avertissement 6002: La table/vue « e525_A13_P2_E1111FFFFFF.dbo.Villes_prof » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
-      -->
-        <EntityType Name="Villes_prof">
-          <Key>
-            <PropertyRef Name="ville_id" />
-          </Key>
-          <Property Name="ville_id" Type="int" Nullable="false" />
-          <Property Name="nom" Type="nvarchar" MaxLength="200" />
-          <Property Name="geometrie" Type="geography" />
+          <Property Name="Nom" Type="varchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_Adresse_Rue">
           <End Role="Rue" Type="ProprioInfiniModel.Store.Rue" Multiplicity="0..1" />
@@ -211,7 +201,6 @@
           <EntitySet Name="Rues" EntityType="ProprioInfiniModel.Rue" />
           <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.sysdiagram" />
           <EntitySet Name="Villes" EntityType="ProprioInfiniModel.Ville" />
-          <EntitySet Name="Villes_prof" EntityType="ProprioInfiniModel.Villes_prof" />
           <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.FK_Adresse_Rue">
             <End Role="Rue" EntitySet="Rues" />
             <End Role="Adresse" EntitySet="Adresses" />
@@ -236,6 +225,7 @@
             <End Role="Proprietaire" EntitySet="Proprietaires" />
             <End Role="Annonce" EntitySet="Annonces" />
           </AssociationSet>
+          <EntitySet Name="Regions" EntityType="ProprioInfiniModel.Region" />
         </EntityContainer>
         <EntityType Name="Adresse">
           <Key>
@@ -316,17 +306,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Nom" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Type="Geography" Name="GeoLocation" />
+          <Property Type="String" Name="Nom" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Adresses" Relationship="ProprioInfiniModel.FK_Adresse_Ville" FromRole="Ville" ToRole="Adresse" />
-        </EntityType>
-        <EntityType Name="Villes_prof">
-          <Key>
-            <PropertyRef Name="ville_id" />
-          </Key>
-          <Property Type="Int32" Name="ville_id" Nullable="false" />
-          <Property Type="String" Name="nom" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="Geography" Name="geometrie" />
         </EntityType>
         <Association Name="FK_Adresse_Rue">
           <End Type="ProprioInfiniModel.Rue" Role="Rue" Multiplicity="0..1" />
@@ -400,6 +381,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="nom" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="geometrie" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -478,18 +467,17 @@
           <EntitySetMapping Name="Villes">
             <EntityTypeMapping TypeName="ProprioInfiniModel.Ville">
               <MappingFragment StoreEntitySet="Ville">
-                <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Villes_prof">
-            <EntityTypeMapping TypeName="ProprioInfiniModel.Villes_prof">
-              <MappingFragment StoreEntitySet="Villes_prof">
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="ProprioInfiniModel.Region">
+              <MappingFragment StoreEntitySet="Region">
                 <ScalarProperty Name="geometrie" ColumnName="geometrie" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
-                <ScalarProperty Name="ville_id" ColumnName="ville_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,13 +12,13 @@
         <EntityTypeShape EntityType="ProprioInfiniModel.Rue" Width="1.5" PointX="5.3246237511395584" PointY="18.563121595682166" />
         <EntityTypeShape EntityType="ProprioInfiniModel.sysdiagram" Width="1.5" PointX="10.952949832637305" PointY="22.449691380583538" />
         <EntityTypeShape EntityType="ProprioInfiniModel.Ville" Width="1.5" PointX="1.7942242537598236" PointY="17.326061197242726" />
-        <EntityTypeShape EntityType="ProprioInfiniModel.Villes_prof" Width="1.5" PointX="10.293151487732843" PointY="3.695018457106789" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Adresse_Rue" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Adresse_Ville" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Batiment_Adresse" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Proprietaire_Adresse" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Annonce_Batiment1" />
         <AssociationConnector Association="ProprioInfiniModel.FK_Annonce_Proprietaire" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Region" Width="1.5" PointX="1.3814352757211008" PointY="16.12987484788982" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,7 +8,6 @@
     <EntitySet Name="Rues" EntityType="ProprioInfiniModel.Rue" />
     <EntitySet Name="sysdiagrams" EntityType="ProprioInfiniModel.sysdiagram" />
     <EntitySet Name="Villes" EntityType="ProprioInfiniModel.Ville" />
-    <EntitySet Name="Villes_prof" EntityType="ProprioInfiniModel.Villes_prof" />
     <AssociationSet Name="FK_Adresse_Rue" Association="ProprioInfiniModel.FK_Adresse_Rue">
       <End Role="Rue" EntitySet="Rues" />
       <End Role="Adresse" EntitySet="Adresses" />
@@ -33,6 +32,7 @@
       <End Role="Proprietaire" EntitySet="Proprietaires" />
       <End Role="Annonce" EntitySet="Annonces" />
     </AssociationSet>
+    <EntitySet Name="Regions" EntityType="ProprioInfiniModel.Region" />
   </EntityContainer>
   <EntityType Name="Adresse">
     <Key>
@@ -113,17 +113,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Nom" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Type="Geography" Name="GeoLocation" />
+    <Property Type="String" Name="Nom" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Adresses" Relationship="ProprioInfiniModel.FK_Adresse_Ville" FromRole="Ville" ToRole="Adresse" />
-  </EntityType>
-  <EntityType Name="Villes_prof">
-    <Key>
-      <PropertyRef Name="ville_id" />
-    </Key>
-    <Property Type="Int32" Name="ville_id" Nullable="false" />
-    <Property Type="String" Name="nom" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Type="Geography" Name="geometrie" />
   </EntityType>
   <Association Name="FK_Adresse_Rue">
     <End Type="ProprioInfiniModel.Rue" Role="Rue" Multiplicity="0..1" />
@@ -197,4 +188,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="nom" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Geography" Name="geometrie" />
+  </EntityType>
 </Schema>

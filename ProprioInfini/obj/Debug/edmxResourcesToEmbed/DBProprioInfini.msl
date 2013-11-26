@@ -73,18 +73,17 @@
     <EntitySetMapping Name="Villes">
       <EntityTypeMapping TypeName="ProprioInfiniModel.Ville">
         <MappingFragment StoreEntitySet="Ville">
-          <ScalarProperty Name="GeoLocation" ColumnName="GeoLocation" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Villes_prof">
-      <EntityTypeMapping TypeName="ProprioInfiniModel.Villes_prof">
-        <MappingFragment StoreEntitySet="Villes_prof">
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="ProprioInfiniModel.Region">
+        <MappingFragment StoreEntitySet="Region">
           <ScalarProperty Name="geometrie" ColumnName="geometrie" />
           <ScalarProperty Name="nom" ColumnName="nom" />
-          <ScalarProperty Name="ville_id" ColumnName="ville_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

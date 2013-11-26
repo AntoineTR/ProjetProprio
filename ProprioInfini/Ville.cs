@@ -21,7 +21,6 @@ namespace ProprioInfini
     
         public int Id { get; set; }
         public string Nom { get; set; }
-        public System.Data.Spatial.DbGeography GeoLocation { get; set; }
     
         public virtual ICollection<Adresse> Adresses { get; set; }
     }

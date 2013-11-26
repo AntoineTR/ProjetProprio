@@ -222,6 +222,9 @@
     <Compile Include="Proprietaire.cs">
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
+    <Compile Include="Region.cs">
+      <DependentUpon>DBProprioInfini.tt</DependentUpon>
+    </Compile>
     <Compile Include="Rue.cs">
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
@@ -229,9 +232,6 @@
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
     <Compile Include="Ville.cs">
-      <DependentUpon>DBProprioInfini.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Villes_prof.cs">
       <DependentUpon>DBProprioInfini.tt</DependentUpon>
     </Compile>
   </ItemGroup>
