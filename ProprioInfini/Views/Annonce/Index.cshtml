@@ -21,7 +21,17 @@
 </p>
 
 <h3>LOL POGNE TA VILLE EL GROS</h3>
-@Html.DropDownList("listRegion", String.Empty)
+@Html.DropDownList("listRegion", "LOL ICITTE TA VILLE")
+<h3>PU CAPABE EL GROS POGNE EL NB DE PIECE</h3>
+@Html.DropDownList("listNbPiece", "LOL ICITTE TON NB DE PIECE")
+<h3>ASTEUR LE MONNIES</h3>
+<select id="TranchePrix">
+    <option>10</option>
+    <option>20</option>
+    <option>30</option>
+    <option>40</option>
+</select>
+
 <table>
     <tr>
         <th>
@@ -99,48 +109,75 @@
 
 
     $('#listRegion').on('change', function ()
-    {
+    {    
         var regionSelectionner = $('#listRegion').find(":selected").text();
-        $.ajax({
-            url: '@Url.Action("ZoomMAPPartial", "Annonce")',
-            data: { region: regionSelectionner },
-            type: 'POST',
-            success: function (data) {
+        if (regionSelectionner != "LOL ICITTE TA VILLE")
+        {
+            $.ajax({
+                url: '@Url.Action("ZoomMAPPartial", "Annonce")',
+                data: {
+                    region: regionSelectionner,
+                    nbrPiece: nbrPiece
+                    },
+                type: 'POST',
+                success: function (data) {
 
-                var array = data.split("/");
-        
-                var arrayPoint = new Array();
+                    var array = data.split("/");
+                    var arrayPoint = new Array();
 
-                for ( i = 0; i < array.length; i++)
-                {
-                    var array2 = array[i].split("$");
+                    for (i = 0; i < array.length; i++) {
+                        var array2 = array[i].split("$");
 
-                    var num1 = array2[0];
-                    var num2 = array2[1];
+                        var num1 = array2[0];
+                        var num2 = array2[1];
 
-                    if (!num1 || !num2)
-                        continue;
+                        if (!num1 || !num2)
+                            continue;
 
-                    num1 = num1.replace(',', '.');
-                    num2 = num2.replace(',', '.');
+                        num1 = num1.replace(',', '.');
+                        num2 = num2.replace(',', '.');
 
-                    if (Number(isNaN(num1)) || Number(isNaN(num2)))
-                        continue;
+                        if (Number(isNaN(num1)) || Number(isNaN(num2)))
+                            continue;
 
-                    arrayPoint.push(new google.maps.LatLng(num1, num2));
+                        arrayPoint.push(new google.maps.LatLng(num1, num2));
+                    }
+                    var bounds = new google.maps.LatLngBounds();
+
+                    for (var i = 0; i < arrayPoint.length; i++) {
+                        bounds.extend(arrayPoint[i]);
+                    }
+                    map.fitBounds(bounds);
                 }
-                var bounds = new google.maps.LatLngBounds();
-
-                for (var i = 0; i < arrayPoint.length; i++)
-                {
-                    bounds.extend(arrayPoint[i]);
-                }
-                map.fitBounds(bounds);
-            }
-        });
-
-
+            });
+        }
     });
+
+
+    $('#listNbPiece').on('change', function () {
+
+        var nbrPiece = $('#listNbPiece').find(":selected").text();
+        var prix = $('#TranchePrix').find(":selected").text();
+        $.ajax({
+            url: '@Url.Action("AjaxFilter", "Annonce")',
+            data: {
+                nombrePiece: nbrPiece,
+                prix: prix
+
+            },
+              type: 'POST',
+              success: function (data)
+              {
+                  //des probs icite jser po
+                  alert(data);
+                  $('.geoloco').remove();
+                  $(data).appendTo('#body');
+                  initialize();
+              }
+          });
+    });
+
+
     var contentString;
     function initialize()
     {
@@ -153,15 +190,20 @@
         };
        
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        initializePoints();
+ 
+       // addPoint(map, new google.maps.LatLng(45.539121, -73.492355));
+    }
 
-        $('.geoloco').each(function ()
-        {
+    function initializePoints()
+    {
+        $('.geoloco').each(function () {
             var add = $(this).attr('id');
             addPoint(map, add);
 
         });
-       // addPoint(map, new google.maps.LatLng(45.539121, -73.492355));
     }
+
 
     var info = new google.maps.InfoWindow({});
     function addPoint(map, adresse)

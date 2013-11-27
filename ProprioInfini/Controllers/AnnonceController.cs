@@ -19,11 +19,20 @@ namespace ProprioInfini.Controllers
         public ActionResult Index()
         {
             var annonces = db.Annonces.Include(a => a.Batiment).Include(a => a.Proprietaire);
+            List<string> lBatisse = new List<string>();
+
+            for (int i = 1; i < 21; i++)
+            {
+                lBatisse.Add(i + "");
+            }            
             ViewBag.listBatisse = db.Annonces.ToList();
             ViewBag.listRegion = new SelectList(db.Regions, "Id", "Nom");
             
+            ViewBag.listNbPiece = new SelectList(lBatisse,"1"); 
+            
             return View(annonces.ToList());
         }
+        
 
 
         public List<DbGeography> getBounds(string region)
@@ -157,20 +166,39 @@ namespace ProprioInfini.Controllers
             }
             return Content(contenu);
         }
+
         [HttpPost]
         public ActionResult ZoomMAPPartial(string region)
         {
+            
             List<DbGeography> yo = getBounds(region);
             string  ye = "";
+
+
 
             foreach (DbGeography item in yo)
             {
                 ye += item.Latitude.ToString() + "$" + item.Longitude.ToString() + "/";
             }
-
            return Content(ye);
-
         }
+
+        [HttpPost]
+        public ActionResult AjaxFilter(string nombrePiece, string prix)
+        {
+
+            List<Annonce> allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Batiment.NombrePiece == int.Parse(nombrePiece) || a.Prix <= int.Parse(prix));
+            string divToReturn = "";
+
+            foreach (Annonce a in allAnnonces)
+            {
+                //ca marche a peu pres
+                divToReturn += "<div class=\"geoloco\" id=\""+ a.Batiment.Adresse.NumeroCivic +" " + a.Batiment.Adresse.Rue.Nom +" " + a.Batiment.Adresse.Ville.Nom + "\"></div>";
+            }
+
+           return Content(divToReturn);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

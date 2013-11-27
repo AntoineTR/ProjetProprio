@@ -298,3 +298,5 @@ C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\bin\zh-Hant\System
 C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\obj\Debug\ProprioInfini.csprojResolveAssemblyReference.cache
 C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\obj\Debug\ProprioInfini.dll
 C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\obj\Debug\ProprioInfini.pdb
+C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\obj\Debug\RdlCompile.cache
+C:\Users\0919842\Documents\GitHub\ProjetProprio\ProprioInfini\obj\Debug\RdlCompile.compiled
