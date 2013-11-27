@@ -91,28 +91,68 @@
     //window.onload(initialize());
 
     $(document).ready(function () {
+
         initialize();
     });
 
+    var map;
 
-    $('#listRegion').on('change', function () {
 
-        alert('test');
+    $('#listRegion').on('change', function ()
+    {
+        var regionSelectionner = $('#listRegion').find(":selected").text();
+        $.ajax({
+            url: '@Url.Action("ZoomMAPPartial", "Annonce")',
+            data: { region: regionSelectionner },
+            type: 'POST',
+            success: function (data) {
+
+                var array = data.split("/");
+        
+                var arrayPoint = new Array();
+
+                for ( i = 0; i < array.length; i++)
+                {
+                    var array2 = array[i].split("$");
+
+                    var num1 = array2[0];
+                    var num2 = array2[1];
+
+                    if (!num1 || !num2)
+                        continue;
+
+                    num1 = num1.replace(',', '.');
+                    num2 = num2.replace(',', '.');
+
+                    if (Number(isNaN(num1)) || Number(isNaN(num2)))
+                        continue;
+
+                    arrayPoint.push(new google.maps.LatLng(num1, num2));
+                }
+                var bounds = new google.maps.LatLngBounds();
+
+                for (var i = 0; i < arrayPoint.length; i++)
+                {
+                    bounds.extend(arrayPoint[i]);
+                }
+                map.fitBounds(bounds);
+            }
+        });
+
 
     });
     var contentString;
     function initialize()
     {
-
+       
         var mapOptions =
         {
             center: new google.maps.LatLng(45.4959944, -73.5693213),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-
+       
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
         $('.geoloco').each(function ()
         {

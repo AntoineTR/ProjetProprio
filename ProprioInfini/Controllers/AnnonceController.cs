@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Spatial;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,8 +21,27 @@ namespace ProprioInfini.Controllers
             var annonces = db.Annonces.Include(a => a.Batiment).Include(a => a.Proprietaire);
             ViewBag.listBatisse = db.Annonces.ToList();
             ViewBag.listRegion = new SelectList(db.Regions, "Id", "Nom");
+            
             return View(annonces.ToList());
         }
+
+
+        public List<DbGeography> getBounds(string region)
+        {
+            List<DbGeography> allPointForOneRegion = new List<DbGeography>();
+            foreach (Region item in db.Regions.ToList())
+            {       
+                if (region == item.nom)
+                {
+                    for (int i = 1; i < item.geometrie.PointCount; i += 10)
+                    {
+                        allPointForOneRegion.Add(item.geometrie.PointAt(i));
+                    }
+                }
+            }
+            return allPointForOneRegion;
+        }
+
 
         //
         // GET: /Annonce/Details/5
@@ -123,21 +143,34 @@ namespace ProprioInfini.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
         [HttpPost]
         public ActionResult AdresseMAPPartial(string adresse)
         {
-            string numCivic =  adresse.Substring(0,adresse.IndexOf(' '));
+            string numCivic = adresse.Substring(0, adresse.IndexOf(' '));
             List<Annonce> lAnnonces = db.Annonces.ToList().FindAll(x => x.Batiment.Adresse.NumeroCivic == int.Parse(numCivic));
-            
+
             string contenu = "<table><tr><th>Nom du Proprio</th><th>Date Debut Annonce</th><th>Date Fin Annonce</th><th>Prix</th><th>Batiment</th><th>Titre de LANNONCE</th>";
             foreach (Annonce item in lAnnonces)
             {
                 contenu += "<tr><td>" + item.Proprietaire.Nom + "</td><td>" + item.DateDebutAnnonce.Value.ToShortDateString() + "</td><td>" + item.DateFinAnnonce.Value.ToShortDateString() + "</td><td>" + item.Prix.ToString() + "</td><td>" + item.Batiment.Nom + "</td><td>" + item.Titre + "</td></tr>";
-            }                   
+            }
             return Content(contenu);
         }
+        [HttpPost]
+        public ActionResult ZoomMAPPartial(string region)
+        {
+            List<DbGeography> yo = getBounds(region);
+            string  ye = "";
 
+            foreach (DbGeography item in yo)
+            {
+                ye += item.Latitude.ToString() + "$" + item.Longitude.ToString() + "/";
+            }
+
+           return Content(ye);
+
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
