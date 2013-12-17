@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3836ffb69f50497b809b097bb5b91f7b" Name="Diagramme1" ZoomLevel="71">
         <EntityTypeShape EntityType="ProprioInfiniModel.Adresse" Width="1.5" PointX="8.4097449855924324" PointY="23.31039700997546" />
-        <EntityTypeShape EntityType="ProprioInfiniModel.Annonce" Width="1.5" PointX="5.6871566035259313" PointY="10.5920007725209" />
-        <EntityTypeShape EntityType="ProprioInfiniModel.Batiment" Width="1.5" PointX="6.4172633301547091" PointY="16.674201183335018" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Annonce" Width="1.5" PointX="8.125" PointY="9.375" />
+        <EntityTypeShape EntityType="ProprioInfiniModel.Batiment" Width="1.5" PointX="5.625" PointY="13" />
         <EntityTypeShape EntityType="ProprioInfiniModel.Proprietaire" Width="1.5" PointX="10.001445733942765" PointY="13.09455188228495" />
         <EntityTypeShape EntityType="ProprioInfiniModel.Rue" Width="1.5" PointX="5.3246237511395584" PointY="18.563121595682166" />
         <EntityTypeShape EntityType="ProprioInfiniModel.sysdiagram" Width="1.5" PointX="10.952949832637305" PointY="22.449691380583538" />

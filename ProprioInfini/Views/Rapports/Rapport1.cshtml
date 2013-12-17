@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Pdf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rapport 1</h2>
+<embed src="@Url.Action("CreatePDF", "Rapport", null /*ici paramètres*/)" type="application/pdf" height="375" style="width: 827px">
+<h2>Rapport 2</h2>
+<embed src="@Url.Action("CreatePDF3", "Rapport", null /*ici paramètres*/)" type="application/pdf" height="375" style="width: 827px">
