@@ -12,87 +12,67 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+
+    .dropdown 
+    {
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+    .dropdown2 
+    {
+        width: 180px;
+    }
 
 
-<h2>Index</h2>
+</style>
 
+<h1>Annonce</h1>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="dropdown"> 
+    <h3>Ville</h3>
+    @Html.DropDownList("listRegion", (IEnumerable<SelectListItem>)ViewBag.listRegion,"Aucune ville", new { @class="dropdown" })
+</div>
 
-<h3>LOL POGNE TA VILLE EL GROS</h3>
-@Html.DropDownList("listRegion", "LOL ICITTE TA VILLE")
-<h3>PU CAPABE EL GROS POGNE EL NB DE PIECE</h3>
-@Html.DropDownList("listNbPiece", "LOL ICITTE TON NB DE PIECE")
-<h3>ASTEUR LE MONNIES</h3>
-<select id="TranchePrix">
-    <option>10</option>
-    <option>20</option>
-    <option>30</option>
-    <option>40</option>
-</select>
+<div class="dropdown"> 
+    <h3>Nombre de pièce</h3>
+    @Html.DropDownList("listNbPiece", (IEnumerable<SelectListItem>)ViewBag.listNbPiece,"Tout les nombres", new { @class="dropdown2" })
+</div>
 
-<table>
-    <tr>
-        <th>
-            Nom du Proprio
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateDebutAnnonce)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateFinAnnonce)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prix)
-        </th>
-        <th>
-            Batiment
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titre)
-        </th>
-        <th></th>
-    </tr>
+<div class="dropdown"> 
+    <h3>Montant</h3>
+    <select id="TranchePrix" style="float: left;">
+        <option>10</option>
+        <option>20</option>
+        <option>30</option>
+        <option>40</option>
+    </select>
+
+    <div style="float: left; margin-left : 10px; margin-right: 10px;"><font size="4"><strong>à</strong></font> </div>
+
+    <select id="TranchePrix2" style="float: left;">
+        <option>10</option>
+        <option>20</option>
+        <option>30</option>
+        <option>40</option>
+    </select>
+</div>
 
 
+    <input id="Rechercher" type="button" value="Rechercher" style="margin-top: 25px; margin-left: 170px; border-radius: 3px;" />
 
 
-@foreach (var item in Model) 
-{
-    
-    <tr>
-        <td>
-            @Html.ActionLink(item.Proprietaire.Nom, "Details","Proprietaire", new { id = item.ProprietaireId }, null)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateDebutAnnonce)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateFinAnnonce)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prix)
-        </td>
-        <td>
-           @Html.ActionLink(item.Batiment.Nom, "Details","Batiment", new { id = item.BatimentId }, null)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
 
 
     <br />
     <br />
-    <h3>Carte d'annonce</h3>
-    <div id="map" style="width: 900px; height: 500px"></div>
+    <br />
+
+    <div id="map" style="width: 900px; height: 500px; border: 2px solid blue;"></div>
+
     <script type="text/javascript"    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB79nxD4iV9QrmpHO2Q5Jd2bkIaKjEh3S8&sensor=false"> </script>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 
@@ -102,23 +82,52 @@
 
     $(document).ready(function () {
 
+        $('#TranchePrix2').val(40);
+
         initialize();
     });
 
     var map;
 
 
-    $('#listRegion').on('change', function ()
-    {    
+    $('#Rechercher').on('click', function () {
+
+       
         var regionSelectionner = $('#listRegion').find(":selected").text();
-        if (regionSelectionner != "LOL ICITTE TA VILLE")
-        {
+        var nombreDePiece = $('#listNbPiece').find(":selected").text();
+        var montantDebut = $('#TranchePrix').find(":selected").text();
+        var montantFin = $('#TranchePrix2').find(":selected").text();
+
+        alert(regionSelectionner + " " + nombreDePiece + " " + montantDebut + " " + montantFin);
+
+        //Filter en premier
+        $.ajax({
+            url: '@Url.Action("AjaxFilter", "Annonce")',
+                 data: {
+                     nombrePiece: nombreDePiece,
+                     prixDebut: montantDebut,
+                     prixFin: montantFin,
+                     region: regionSelectionner,
+
+                 },
+                 type: 'POST',
+                 success: function (data) {
+                     //des probs icite jser po
+                     alert(data);
+                     $('.geoloco').remove();
+                     $(data).appendTo('#body');
+                     initialize();
+                 }
+             });
+
+
+        //Zoom à bonne place
+        if (regionSelectionner != "Aucune ville") {
             $.ajax({
                 url: '@Url.Action("ZoomMAPPartial", "Annonce")',
                 data: {
-                    region: regionSelectionner,
-                    nbrPiece: nbrPiece
-                    },
+                    region: regionSelectionner
+                },
                 type: 'POST',
                 success: function (data) {
 
@@ -151,31 +160,13 @@
                 }
             });
         }
+
+
     });
+ 
 
 
-    $('#listNbPiece').on('change', function () {
 
-        var nbrPiece = $('#listNbPiece').find(":selected").text();
-        var prix = $('#TranchePrix').find(":selected").text();
-        $.ajax({
-            url: '@Url.Action("AjaxFilter", "Annonce")',
-            data: {
-                nombrePiece: nbrPiece,
-                prix: prix
-
-            },
-              type: 'POST',
-              success: function (data)
-              {
-                  //des probs icite jser po
-                  alert(data);
-                  $('.geoloco').remove();
-                  $(data).appendTo('#body');
-                  initialize();
-              }
-          });
-    });
 
 
     var contentString;

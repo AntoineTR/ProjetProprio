@@ -173,9 +173,6 @@ namespace ProprioInfini.Controllers
             
             List<DbGeography> yo = getBounds(region);
             string  ye = "";
-
-
-
             foreach (DbGeography item in yo)
             {
                 ye += item.Latitude.ToString() + "$" + item.Longitude.ToString() + "/";
@@ -184,10 +181,19 @@ namespace ProprioInfini.Controllers
         }
 
         [HttpPost]
-        public ActionResult AjaxFilter(string nombrePiece, string prix)
+        public ActionResult AjaxFilter(string nombrePiece, string prixDebut, string prixFin, string region)
         {
 
-            List<Annonce> allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Batiment.NombrePiece == int.Parse(nombrePiece) || a.Prix <= int.Parse(prix));
+            List<Annonce> allAnnonces = new List<Annonce>();
+            if (nombrePiece == "Tout les nombres" && region == "Aucune ville")
+                allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Prix >= int.Parse(prixDebut) && a.Prix <= int.Parse(prixFin));
+            else if (region == "Aucune ville")
+                allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Prix >= int.Parse(prixDebut) && a.Prix <= int.Parse(prixFin) && a.Batiment.NombrePiece == int.Parse(nombrePiece));
+            else if (nombrePiece == "Tout les nombres")
+                allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Prix >= int.Parse(prixDebut) && a.Prix <= int.Parse(prixFin) && a.Batiment.Adresse.Ville.Nom == region);
+            else
+                allAnnonces = (List<Annonce>)db.Annonces.ToList().FindAll(a => a.Batiment.NombrePiece == int.Parse(nombrePiece) && a.Prix >= int.Parse(prixDebut) && a.Prix <= int.Parse(prixFin) && a.Batiment.Adresse.Ville.Nom == region);
+
             string divToReturn = "";
 
             foreach (Annonce a in allAnnonces)
